@@ -14,8 +14,6 @@ import lombok.NoArgsConstructor;
  * @author el amine
  * @version 0.1
  */
-
-
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
@@ -23,7 +21,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class BasePerson {
-
     @Id
     @Column(name = "ID")
     protected   String id;
@@ -33,12 +30,4 @@ public class BasePerson {
 
     @Column(name = "LAST_NAME")
     protected   String lastName;
-
-
-
-
-
-
-
-
 }

@@ -1,7 +1,7 @@
 package com.example.david_test.service;
 
 
-import com.example.david_test.error.exceptions.PersonNotFoundExecpetion;
+import com.example.david_test.error.exceptions.PersonNotFoundException;
 import com.example.david_test.models.Person;
 import com.example.david_test.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,44 +14,40 @@ import java.util.Optional;
 
 @Service
 public class PersonService {
-
     @Autowired
     PersonRepository personRepository;
 
     public List<Person> getAllPerson() {
-        Page p = personRepository.findAll(Pageable.ofSize(10));
-        return (List<Person>) personRepository.findAll(Pageable.ofSize(10));
-
+        return (List<Person>) personRepository.findAll();
     }
 
-    public Person getPersonById(String id) throws PersonNotFoundExecpetion {
-        Optional<Person> person = personRepository.findById(id);
-        if (person.isEmpty()) {
-            throw new PersonNotFoundExecpetion("je ne trouvze pas cette employe");
-        } else {
-            return person.get();
+    public Person getPersonById(String id) throws PersonNotFoundException {
+        try {
+            Person person = personRepository.findById(id).get();
+            return person;
+        } catch (java.util.NoSuchElementException ex) {
+            throw new PersonNotFoundException("Aucune personne trouvée !");
         }
-
     }
 
-    public Person getPersonByLastAndFirstName(String firstName, String lastName) throws PersonNotFoundExecpetion {
-        Optional<Person> person = personRepository.findDistincByFirstNameAndLastName(firstName, lastName);
-        if (person.isEmpty()) {
-            throw new PersonNotFoundExecpetion("je ne trouvze pas cette employe");
-        } else {
-            return person.get();
+    public Person getPersonByFirstNameAndLastName(String firstName, String lastName) throws PersonNotFoundException {
+        try {
+            Person person = personRepository.findPersonByFirstNameAndLastName(firstName, lastName);
+            if (person == null) {
+                throw new PersonNotFoundException("Aucune personne trouvée !");
+            }
+            return person;
+        } catch (java.util.NoSuchElementException ex) {
+            throw new PersonNotFoundException("Aucune personne trouvée !");
         }
-
-
     }
 
-    public void delete(String id) throws PersonNotFoundExecpetion {
-        Optional<Person> person = personRepository.findById(id);
-        if (person.isEmpty()) {
-            throw new PersonNotFoundExecpetion("je ne trouvze pas cette employe");
-        } else {
+    public void delete(String id) throws PersonNotFoundException {
+        try {
+            Person person = getPersonById(id);
             personRepository.deleteById(id);
+        } catch (PersonNotFoundException ex){
+            throw new PersonNotFoundException("Impossible de supprimer, person n'existe pas");
         }
-
     }
 }

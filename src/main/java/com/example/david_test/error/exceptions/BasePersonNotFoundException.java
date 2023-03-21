@@ -6,9 +6,9 @@ package com.example.david_test.error.exceptions;
  * @version 0.1
  */
 
-public class BasePersonNotFoundExcpetion extends RuntimeException {
+public class BasePersonNotFoundException extends RuntimeException {
 
-    public BasePersonNotFoundExcpetion(String message) {
+    public BasePersonNotFoundException(String message) {
         super(message);
     }
 

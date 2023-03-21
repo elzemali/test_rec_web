@@ -19,50 +19,44 @@ import java.util.List;
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "ID")
 public class Person extends BasePerson{
-
-
     @Column(name = "EYE_COLOR")
-    private  String eyeColor="";
+    private String eyeColor;
 
     @Column(name = "GENDER")
-    private  String gender;
+    private String gender;
 
     @Column(name = "DATE_OF_BIRTH" )
-    //@Convert(converter = LocalDateTimeAttributeConverter.class)
-    @Temporal(value=TemporalType.DATE)
-    private  LocalDateTime dateOfBirth= null;
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
+    //@Temporal(value=TemporalType.DATE)
+    private LocalDateTime dateOfBirth;
 
     @Column(name = "EMAIL")
-    private  String email;
-
+    private String email;
 
     @Column(name = "PHONE")
-    private  long phone;
+    private long phone;
 
     @Column(name = "ADDRESS")
-    private  String address;
+    private String address;
 
     @Column(name = "COUNTRY")
-    private  String country;
+    private String country;
 
     @Lob
     @Column(name = "ABOUT")
-    private  String about="";
+    private String about="";
 
     @Basic(optional = false)
     @Column(name = "FL_ACTIVE")
-    private  boolean isActive;
+    private boolean isActive;
 
     @Column(name = "REGISTERED")
+    private LocalDate registered;
 
-    private final LocalDate registered = null;
-
-
-    //   private List<String> list;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable( name="person_children",
             joinColumns = @JoinColumn(name = "ID_PERSON"),
             inverseJoinColumns = @JoinColumn(name="ID_CHILD"))
-    private final List<Child> children = null;
+    private List<Child> children;
 
 }

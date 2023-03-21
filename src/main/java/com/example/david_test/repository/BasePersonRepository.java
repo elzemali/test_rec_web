@@ -17,10 +17,7 @@ import java.util.Optional;
 @Repository
 public interface BasePersonRepository extends JpaRepository<BasePerson,String> {
 
-    //TODO enlever Optional
-    //TODO changer la technique d'obtention de Query // JPQL
     @Query(value= "select b from BasePerson b where b.firstName = :firstName and b.lastName = :lastName")
     public BasePerson findBasePersonByFirstNameAndLastName(String firstName, String lastName);
-
 
 }
