@@ -1,6 +1,7 @@
 package com.example.david_test.service;
 
 
+import com.example.david_test.error.exceptions.BasePersonNotFoundExcpetion;
 import com.example.david_test.models.BasePerson;
 import com.example.david_test.models.Person;
 import com.example.david_test.repository.BasePersonRepository;
@@ -24,16 +25,22 @@ public class BasePersonService {
     }
 
     public BasePerson getPersonById(String id){
-        //TODO Exception whene id dont existe
+        BasePerson basePerson = basepersonRepository.getReferenceById(id);
+        if (basePerson == null) {
+            throw new BasePersonNotFoundExcpetion("aucune personne trouvée !!");
+        }
         return basepersonRepository.findById(id).get();
     }
     public BasePerson getPersonByLastAndFirstName(String firstName,String lastName){
-        //TODO exception whene Person don't existe
-        return basepersonRepository.findDistincByFirstNameAndLastName(firstName,lastName).get();
+        BasePerson basePerson = basepersonRepository.findBasePersonByFirstNameAndLastName(firstName,lastName);
+        if (basePerson == null) {
+            throw new BasePersonNotFoundExcpetion("aucune personne trouvée !!");
+        }
+        return basePerson;
     }
 
     public void delete(String id ){
-        //TODO throw exception if person don't existe
+
         basepersonRepository.deleteById(id);
     }
 }

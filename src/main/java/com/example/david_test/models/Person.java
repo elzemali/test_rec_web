@@ -28,7 +28,8 @@ public class Person extends BasePerson{
     private  String gender;
 
     @Column(name = "DATE_OF_BIRTH" )
-    @Convert(converter = LocalDateTimeAttributeConverter.class)
+    //@Convert(converter = LocalDateTimeAttributeConverter.class)
+    @Temporal(value=TemporalType.DATE)
     private  LocalDateTime dateOfBirth= null;
 
     @Column(name = "EMAIL")

@@ -1,6 +1,6 @@
 package com.example.david_test.error;
 
-import com.example.david_test.error.exceptions.BasePersonNotFoundExecpetion;
+import com.example.david_test.error.exceptions.BasePersonNotFoundExcpetion;
 import com.example.david_test.error.exceptions.ChildNotFoundExecpetion;
 import com.example.david_test.error.exceptions.PersonNotFoundExecpetion;
 import org.springframework.http.HttpStatus;
@@ -34,8 +34,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(test.getMessage());
     }
 
-    @ExceptionHandler(value = BasePersonNotFoundExecpetion.class)
-    public ResponseEntity<String> getBasePersonNotFound(BasePersonNotFoundExecpetion test) {
+    @ExceptionHandler(value = BasePersonNotFoundExcpetion.class)
+    public ResponseEntity<String> getBasePersonNotFound(BasePersonNotFoundExcpetion test) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(test.getMessage());
     }
 
